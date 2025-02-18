@@ -2,12 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ShoppingBag, Menu, X ,Search } from "lucide-react"
-import { useState, useEffect } from "react"
+import { ShoppingCart, Menu, X ,Search } from "lucide-react"
+import { useState } from "react"
 import { motion } from "framer-motion"
+import { useCart } from "@/lib/cart-context";
 
 export default function NavBar(){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { cart } = useCart();
+    const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     return(
         <nav className="bg-white shadow-md">
@@ -42,12 +45,17 @@ export default function NavBar(){
                         </Link>
                     </div>
                     <div className="flex items-center">
-                        <Button variant="ghost" size='icon'>
-                            <Search />
-                        </Button>
-                        <Button variant='ghost' size='icon'>
-                            <ShoppingBag />
-                        </Button>
+                        <Link href="/successful_checkout" className="relative">
+                            <Search size = {24}/>
+                        </Link>
+                        <Link href="/cart" className="relative">
+                            <ShoppingCart size = {24}/>
+                            {itemCount > 0 && (
+                                <span>
+                                    {itemCount}
+                                </span>
+                            )}
+                        </Link>
                         <div className="sm:hidden">
                             <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                                 {isMenuOpen?
