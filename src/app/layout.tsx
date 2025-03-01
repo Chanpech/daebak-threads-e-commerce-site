@@ -3,6 +3,8 @@ import './globals.css'
 import NavBar from './components/Navbar'
 import Footer from './components/Footer'
 import { CartProvider } from '@/lib/cart-context'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import BottomNav from './components/BottomNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CartProvider>
-          <NavBar />
-          <main>{children}</main>
-          <Footer />
-        </CartProvider>
+          <CartProvider>
+            <NavBar />
+            <main>{children}</main>
+            <Footer />
+            <BottomNav />
+          </CartProvider>
       </body>
     </html>
   )

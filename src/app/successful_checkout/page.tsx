@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { redirect } from "next/navigation";
 import { createOrder, updateOrderStatus } from "@/lib/order";
 import { OrderItem } from "@/lib/types";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default async function CheckoutSucessPage(
     { searchParams, }: { searchParams: { session_id: string};
@@ -61,11 +62,13 @@ export default async function CheckoutSucessPage(
     } 
 
     return (
-        <div>
-            <h1>Thank you for your purchase!</h1>
-            <p>Your payment was successful.</p>
-            <p>Order total: ${(session.amount_total! / 100).toFixed(2)}</p>
-        </div>
+        <ProtectedRoute>
+            <div>
+                <h1>Thank you for your purchase!</h1>
+                <p>Your payment was successful.</p>
+                <p>Order total: ${(session.amount_total! / 100).toFixed(2)}</p>
+            </div>
+        </ProtectedRoute>
     );
 
 

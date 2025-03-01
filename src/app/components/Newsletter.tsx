@@ -9,7 +9,7 @@ export default function NewsLetter(){
     const [ email, setEmail ] = useState('');
 
     const handleSubmit = () => {
-
+        
     };
     return(
         <section id="newsletter" className="py-16 bg-gray-800 text-white"> 
