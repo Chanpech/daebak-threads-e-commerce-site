@@ -3,17 +3,30 @@
 import React, { useState } from 'react'
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+import { useRouter } from 'next/navigation';
 
 function Login() {
-    const [email, setEmail] = useState<string>("johndoe@email.com");
+    const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    
-    const handleLogin = async () => {
+    const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
 
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();     // Prevent default form submission behavior
+        setLoading(true);
+        
         try{
+            alert("Trying to log in")
+            await signInWithEmailAndPassword(auth, email, password);
             alert("Logged In")
+            router.push("/")    //Redirect to home page
         }catch( error: any){
-
+            setError(error.message);
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -23,10 +36,11 @@ function Login() {
             <h2 className='text-2xl font-bold mb-6 text-center'>
                 Login
             </h2>
+            {error && <p className='text-red-500 text-sm mb-4'>{error}</p>}
         </div>
         <form onSubmit={handleLogin}>
-            <div>
-                <label className=''>
+            <div className='mb-4'>
+                <label className='block text-sm font-medium mb-2' htmlFor='email'>
                     Email
                 </label>
                 <input 
@@ -38,8 +52,8 @@ function Login() {
                     required
                 />
             </div>
-            <div>
-                <label>
+            <div className='mb-6'>
+                <label className='block text-sm font-medium mb-2' htmlFor='password'>
                     Password
                 </label>
                 <input 
@@ -51,8 +65,12 @@ function Login() {
                     required
                 />
             </div>
-            <Button>
-                Login
+            <Button
+                type='submit'
+                className='hover:bg-blue-600'
+                disabled={loading}
+            >
+                {loading ? "Logging In..." : "Login"}
             </Button>
         </form>
         <p className=''>
