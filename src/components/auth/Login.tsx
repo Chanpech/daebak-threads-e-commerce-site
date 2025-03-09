@@ -32,7 +32,7 @@ function Login() {
 
     return (
     <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
-        <div className='bg-white p-8 rounded-lg shadow-md w-96'>
+        <div className='bg-white p-8 rounded-lg shadow-md w-96 mb-5'>
             <h2 className='text-2xl font-bold mb-6 text-center'>
                 Login
             </h2>
@@ -73,12 +73,19 @@ function Login() {
                 {loading ? "Logging In..." : "Login"}
             </Button>
         </form>
-        <p className=''>
-            Don't have an account? {" "}
-            <Link href="/registration" className='text-blue-500 hover:underline'>
-                Sign-Up
-            </Link>
-        </p>
+        <div className='my-5'>
+            <p className=''>
+                <Link href="/password-reset" className='text-blue-500 hover:underline'>
+                    Forgot your password?
+                </Link>
+            </p>
+            <p className=''>
+                Don't have an account? {" "}
+                <Link href="/signup" className='text-blue-500 hover:underline'>
+                    Sign-Up
+                </Link>
+            </p>
+        </div>
     </div>
   )
 }

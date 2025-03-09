@@ -1,4 +1,4 @@
-import { Cart } from "@/components/ui/Cart";
+import { Cart } from "@/components/cart/Cart";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default function CartPage(){

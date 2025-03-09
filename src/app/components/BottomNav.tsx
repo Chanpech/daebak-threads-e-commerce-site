@@ -18,8 +18,8 @@ export default function BottomNav(){
         },
         {
             icon: User,
-            label: 'Authentication',
-            href:'/authentication',
+            label: 'Login',
+            href:'/login',
         }
 
     ];
